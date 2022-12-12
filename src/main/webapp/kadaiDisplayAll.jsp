@@ -7,20 +7,51 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		
-		<title>一覧</title>	
+		<style type="text/css">
+			table {
+				border-collapse: collapse;
+			}
+			table, th, td {
+				border: solid 1px #000000;
+			}
+			th, td {
+				padding: 5px;
+			}
+			.formarea {
+				margin-left: 30px;
+			}
+			.buttonarea {
+				margin-top: 20px;
+			}
+			.linkStyle {
+				display: inline-block;
+				padding: 10px;
+				color: #0000ff;
+			}
+			.noLinkStyle {
+				display: line-block;
+				padding: 10px;
+				color: #99999;
+			}
+		</style>
+		<title>一覧</title>
 	</head>
 	<body>
 		<header>
 			<h2>データの編集</h2>
 		</header>
 		<main>
+			<form class="formarea" method="get" action="search">
+				<input type="text" name="keyword">
+				<button type="submit" name="submit" value="search">検索</button>
+			</form>
+			
+			<form class="formarea" method="get" action="select">
 				<table>
 					<tr>
 						<th>選択</th>
 						<th>ID</th>
 						<th>氏名</th>
-						<th>ふりがな</th>
 					</tr>
 					<%		//受け取ったデータをテーブルに表示する
 						int cnt;
@@ -32,14 +63,16 @@
 						<td><input type="radio" name="id" value="<%= bean.getId() %>" id="radio<%= cnt %>"></td>
 						<td><label for="radio<%= cnt %>"><%= bean.getId() %></label></td>
 						<td><label for="radio<%= cnt %>"><%= bean.getName() %></label></td>
-						<td><label for="radio<%= cnt %>"><%= bean.getFurigana() %></label></td>
-						
 					</tr>
 					<%
 						}
 					%>
 				</table>
 				<%
+					String keyword = (String)request.getAttribute("keyword");
+					if(keyword == null ) {
+						keyword = "";
+					}
 					int currentPage = (int)request.getAttribute("page");
 					int allPage = (Integer) request.getAttribute("allpage");
 					
@@ -61,7 +94,7 @@
 						//---"前へ"を表示ただし、現在ページが１ならリンクは設定しない
 						if(currentPage > 1) {
 							%>
-							<a class="linkStyle" href="displayAll?page=<%= (currentPage - 1) %>">前へ</a>
+							<a class="linkStyle" href="displayAll?page=<%= (currentPage - 1) %>&keyword=<%=keyword%>">前へ</a>
 							<%	
 						} else {
 							%>
@@ -76,14 +109,14 @@
 								<%
 							} else {
 								%>
-								<a class="linkStyle" href="displayAll?page=<%=i%>"><%=i%></a>
+								<a class="linkStyle" href="displayAll?page=<%=i%>&keyword<%=keyword%>"><%=i%></a>
 								<%
 							}
 						}
 						//----"へ"の表示ただし、現在ページが最終ページならリンクは設定しない
 						if(currentPage < allPage) {
 							%>
-							<a class="linkStyle" href="displayAll?page=<%=(currentPage + 1)%>"> 次へ</a>
+							<a class="linkStyle" href="displayAll?page=<%=(currentPage + 1)%>&keyword=<%=keyword %>>"> 次へ</a>
 							<%
 						} else {
 							%>
@@ -98,6 +131,7 @@
 					<button type="submit" name="submit" value="update">編集</button>
 					
 				</div>
+			</form>
 		</main>
 	</body>
 </html>
