@@ -34,6 +34,7 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 		try {
 			if(keyword == "") {
 				sql ="select count(*) as cnt from gakusei_master";
+				st = con.createStatement();
 				rs = st.executeQuery(sql);
 				rs.next();
 			} else {
@@ -54,8 +55,8 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 		return allPage;
 	}
 	
-	//----検索データ
-	public List<KadaiDataBean> getSelectData(int page , String keyword) {
+	//----最初に表示するデータ（ID,名前,ふりがな）
+	public List<KadaiDataBean> getAllData(int page , String keyword) {
 		List<KadaiDataBean> data = new ArrayList<KadaiDataBean>();
 		try {
 			if(keyword == null || keyword == "") {
@@ -70,30 +71,6 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 			pst.setInt(4, baseRow);
 			pst.setInt(5, MAXROW);
 			rs = pst.executeQuery();
-				
-			while(rs.next()) {
-				int id = rs.getInt("Student_ID");
-				String name = rs.getString("Name");
-				String furigana = rs.getString("Furigana");
-				KadaiDataBean b = new KadaiDataBean();
-				b.setId(id);
-				b.setName(name);
-				b.setFurigana(furigana);
-				data.add(b);
-			}
-		} catch(Exception e) {
-			data = null;
-		}
-		return data;
-	}
-	
-	//----最初に表示するデータ（ID,名前,ふりがな）
-	public List<KadaiDataBean> getAllData() {
-		List<KadaiDataBean> data = new ArrayList<KadaiDataBean>();
-		try {
-			sql = "select * from gekusei_master"; 
-			st = con.createStatement();
-			rs = st.executeQuery(sql);
 			
 			while(rs.next()) {
 				int id = rs.getInt("Student_ID");
@@ -106,7 +83,6 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 				data.add(b);
 			}
 		} catch(Exception e) {
-			e.getStackTrace();
 			data = null;
 		}
 		return data;

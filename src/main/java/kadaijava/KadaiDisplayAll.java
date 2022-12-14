@@ -45,12 +45,12 @@ public class KadaiDisplayAll extends HttpServlet {
 		
 		List<KadaiDataBean> list = new ArrayList<KadaiDataBean>();
 		KadaiDAO dao = new KadaiDAO();
-		list = dao.getAllData();
+		list = dao.getAllData(page,keyword);
 		
 		request.setAttribute("data", list);
 		request.setAttribute("page", page);
-		request.setAttribute("keyword", keyword);
 		request.setAttribute("allpage", dao.getMaxPage(keyword));
-		request.getRequestDispatcher("kadaiDisplayAll.jsp").forward(request, response);
+		request.setAttribute("keyword", keyword);
+		request.getRequestDispatcher("kadaiDisplay.jsp").forward(request, response);
 	}
 }

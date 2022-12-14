@@ -50,10 +50,11 @@
 				<table>
 					<tr>
 						<th>選択</th>
-						<th>ID</th>
-						<th>氏名</th>
+						<th>学籍番号</th>
+						<th>学生氏名</th>
+						<th>ふりがな</th>
 					</tr>
-					<%		//受け取ったデータをテーブルに表示する
+					<%
 						int cnt;
 						List<KadaiDataBean> data = (ArrayList)request.getAttribute("data");
 						for(KadaiDataBean bean : data) {
@@ -63,6 +64,7 @@
 						<td><input type="radio" name="id" value="<%= bean.getId() %>" id="radio<%= cnt %>"></td>
 						<td><label for="radio<%= cnt %>"><%= bean.getId() %></label></td>
 						<td><label for="radio<%= cnt %>"><%= bean.getName() %></label></td>
+						<td><label for="radio<%= cnt %>"><%= bean.getFurigana() %></label></td>
 					</tr>
 					<%
 						}
@@ -126,9 +128,8 @@
 					}
 				%>
 				<div class="buttonarea">
-					<button type="submit" name="submit" value="delete">削除</button>
+					<button type="submit" name="submit" value="delete">詳細</button>
 					<button type="submit" name="submit" value="insert">新規登録</button>
-					<button type="submit" name="submit" value="update">編集</button>
 					
 				</div>
 			</form>
