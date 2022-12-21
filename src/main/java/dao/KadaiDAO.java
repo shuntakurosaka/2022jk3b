@@ -88,57 +88,84 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 		return data;
 	}
 	
+	public KadaiDataBean getOneRec(String id) {
+		KadaiDataBean data = new KadaiDataBean();
+		try {
+			sql = "select * from gakusei_master where Student_ID =?";
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, Integer.parseInt(id));
+			rs = pst.executeQuery();
+			rs.next();
+			KadaiDataBean b = new KadaiDataBean();
+			b.setId(rs.getInt("Student_ID"));
+			b.setStatus(rs.getInt("Status"));
+			b.setStatusEnterDate(rs.getString("Status_EnterDate"));
+			b.setName(rs.getString("Name"));
+			b.setFurigana(rs.getString("Furigana"));
+			b.setBirth(rs.getString("Birth"));
+			b.setPostNumber(rs.getString("PostNumber"));
+			b.setAddress(rs.getString("Address"));
+			b.setTellNumber(rs.getString("TellNumber"));
+			if(rs.getString("Mail") != null) {
+				b.setMail(rs.getString("Mail"));
+			} else {
+				b.setMail("");
+			}
+			b.setParentName(rs.getString("Parent_Name"));
+			b.setParentFurigana(rs.getString("Parent_Furigana"));
+			b.setParentPostNumber(rs.getString("Parent_PostNumber"));
+			b.setParentAddress(rs.getString("Parent_Address"));
+			b.setParentTellNumber(rs.getString("Parent_TellNumber"));
+			if(rs.getString("Mail") != null) {
+				b.setParentMail(rs.getString("Parent_Mail"));
+			} else {
+				b.setParentMail("");
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+			data = null;
+		}
+		return data;
+	}
+	
 	//----詳細表示用のひとりの全データ
 	public List<KadaiDataBean> getDetailData(int comeid) {
 		List<KadaiDataBean> data = new ArrayList<KadaiDataBean>();
 		try {
-			sql = "select * from gakusei_master where Student_ID = ?"; 
+			sql = "select * from gakusei_master where Student_ID = ?";
 			pst = con.prepareStatement(sql);
 			pst.setInt(1,comeid);
 			rs = pst.executeQuery();
 			
-			while(rs.next()) {
-				int id = rs.getInt("Student_ID");
-				int status = rs.getInt("Status");
-				String statusEnterDate = rs.getString("Status_EnterDate");
-				String name = rs.getString("Name");
-				String furigana = rs.getString("Furigana");
-				String birth = rs.getString("Birth");
-				String postNumber = rs.getString("PostNumber");
-				String address = rs.getString("Address");
-				String tellNumber = rs.getString("TellNumber");
-				String mail = "";
-				try {
-					mail = rs.getString("Mail");
-				} catch(Exception e) {}
-				String parentName = rs.getString("Parent_Name");
-				String parentFurigana = rs.getString("Parent_Furigana");
-				String parentAddress = rs.getString("Parent_Address");
-				String parentTellNumber = rs.getString("Parent_TellNumber");
-				String parentMail = "";
-				try {
-					parentMail = rs.getString("Parent_Mail");
-				} catch(Exception e) {}
-				KadaiDataBean b = new KadaiDataBean();
-				b.setId(id);
-				b.setStatus(status);
-				b.setStatusEnterDate(statusEnterDate);
-				b.setName(name);
-				b.setFurigana(furigana);
-				b.setBirth(birth);
-				b.setPostNumber(postNumber);
-				b.setAddress(address);
-				b.setTellNumber(tellNumber);
-				b.setMail(mail);
-				b.setParentName(parentName);
-				b.setParentFurigana(parentFurigana);
-				b.setParentAddress(parentAddress);
-				b.setParentTellNumber(parentTellNumber);
-				b.setParentMail(parentMail);
-				data.add(b);
+			rs.next();
+			KadaiDataBean b = new KadaiDataBean();
+			b.setId(rs.getInt("Student_ID"));
+			b.setStatus(rs.getInt("Status"));
+			b.setStatusEnterDate(rs.getString("Status_EnterDate"));
+			b.setName(rs.getString("Name"));
+			b.setFurigana(rs.getString("Furigana"));
+			b.setBirth(rs.getString("Birth"));
+			b.setPostNumber(rs.getString("PostNumber"));
+			b.setAddress(rs.getString("Address"));
+			b.setTellNumber(rs.getString("TellNumber"));
+			if(rs.getString("Mail") != null) {
+				b.setMail(rs.getString("Mail"));
+			} else {
+				b.setMail("");
 			}
+			b.setParentName(rs.getString("Parent_Name"));
+			b.setParentFurigana(rs.getString("Parent_Furigana"));
+			b.setParentPostNumber(rs.getString("Parent_PostNumber"));
+			b.setParentAddress(rs.getString("Parent_Address"));
+			b.setParentTellNumber(rs.getString("Parent_TellNumber"));
+			if(rs.getString("Mail") != null) {
+				b.setParentMail(rs.getString("Parent_Mail"));
+			} else {
+				b.setParentMail("");
+			}
+			data.add(b);
 		} catch(Exception e) {
-			e.getStackTrace();
+			e.printStackTrace();
 			data = null;
 		}
 		return data;

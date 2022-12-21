@@ -34,7 +34,6 @@ public class KadaiSearch extends HttpServlet {
 				}
 			}
 			
-			
 			request.setAttribute("keyword", keyword);
 			request.setAttribute("page", page);
 			request.getRequestDispatcher("/displayAll").forward(request, response);	
