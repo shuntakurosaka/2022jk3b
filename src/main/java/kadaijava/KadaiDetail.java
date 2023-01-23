@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import bean.KadaiDataBean;
 import dao.KadaiDAO;
@@ -36,7 +37,8 @@ public class KadaiDetail extends HttpServlet {
 			KadaiDAO dao = new KadaiDAO();
 			list = dao.getDetailData(id);
 			
-			request.setAttribute("detailData", list);
+			HttpSession kadaiSession = request.getSession();
+			kadaiSession.setAttribute("S_detailData", list);
 			request.getRequestDispatcher("kadaiDetailDisplay.jsp").forward(request, response);
 		} catch(Exception e) {
 			e.printStackTrace();

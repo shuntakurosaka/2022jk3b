@@ -1,90 +1,167 @@
+<%@page import="javax.sound.midi.SysexMessage"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
+    <%@ page import="bean.KadaiDataBean"%>
+    <%@ page import="java.util.List"%>
+    <%@ page import="java.util.ArrayList"%>
+    <%@ page import="javax.servlet.http.HttpSession" %>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<style>
-			a {
-				text-decoration: none;
+		<style type="text/css">
+			table {
+				border-collapse: collapse;
 			}
-			.buttonImage {
+			table, th, td {
+				border: solid 1px #000000;
+			}
+			th, td {
+				padding: 5px;
+			}
+			.formarea {
+				margin-left: 30px;
+			}
+			.buttonarea {
+				margin-top: 20px;
+			}
+			.linkStyle {
 				display: inline-block;
-				font-size: 0.8em;
-				background: #eeeeee;
-				border: solid 1px #333333;
-				border-radius: 3px;
-				color: #000000;
-				width: fit-content;
-				padding: 2px 5px;
-				text-align: center;
-				text-decoration: none;
-				cursor: arrow;
+				padding: 10px;
+				color: #0000ff;
 			}
-			.buttonImage:hover {
-				background-color: #dddddd;
+			.noLinkStyle {
+				display: line-block;
+				padding: 10px;
+				color: #99999;
 			}
+			
 		</style>
-		<title>修正内容を確定</title>
+		<title>変更の確定</title>
 	</head>
 	<body>
+		<header>
+			<h2>この変更でよろしいですか？</h2>
+		</header>
+		<main>
 				<%
-				List<KadaiDataBean> detailData = (ArrayList)request.getAttribute("detailData");
+				HttpSession kadaiSession = request.getSession();
+				List<KadaiDataBean> detailData = (ArrayList)kadaiSession.getAttribute("S_detailData");
 				for(KadaiDataBean bean : detailData) {
 				%>
-				<table>
+				<table class="x">
 						<tr><th>学籍番号</th>
-							<td><input type="text" name="changed_id" value="<%= bean.getId() %>" pattern=".*\S+.*" maxlength="5" pattern="\d{5}" required></td></tr>
+							<td><%= bean.getId() %></td></tr>
 						<tr><th>在籍状態</th>
-							<td><input type="text" name="changed_status" value="<%= bean.getStatus() %>" pattern="^[0-2]" required></td></tr>
+							<td><%= bean.getStatus() %></td></tr>
 						<tr><th>在籍状態確定日</th>
-							<td><input type="date" name="changed_statusdate" value="<%= bean.getStatusEnterDate() %>" max="" required></td></tr>
+							<td><%= bean.getStatusEnterDate() %></td></tr>
 						<tr><th>学生氏名</th>
-							<td><input type="text" name="changed_name" value="<%= bean.getName() %>" pattern=".*\S+.*" required></td></tr>
+							<td><%= bean.getName() %></td></tr>
 						<tr><th>ふりがな</th>
-							<td><input type="text" name="changed_furigana" value="<%= bean.getFurigana() %>" pattern="[\u3041-\u3096\s]*" required></td></tr>
+							<td><%= bean.getFurigana() %></td></tr>
 						<tr><th>生年月日</th>
-							<td><input type="date" name="changed_birth" value="<%= bean.getBirth() %>" max="" required></td></tr>
+							<td><%= bean.getBirth() %></td></tr>
 						<tr><th>本人郵便番号</th>
-							<td><input type="text" name="changed_post" value="<%= bean.getPostNumber() %>" pattern=".*\S+.*" maxlength="7" required></td></tr>
+							<td><%= bean.getPostNumber() %></td></tr>
 						<tr><th>本人住所</th>
-							<td><input type="text" name="changed_address" value="<%= bean.getAddress() %>" pattern=".*\S+.*" required></td></tr>
+							<td><%= bean.getAddress() %></td></tr>
 						<tr><th>本人電話番号</th>
-							<td><input type="tel" name="changed_tel" value="<%= bean.getTellNumber() %>" pattern=".*\S+.*" required></td></tr>
+							<td><%= bean.getTellNumber() %></td></tr>
 						<tr><th>本人メールアドレス</th>
 						<%
+						String Mail;
 						if(bean.getMail() != null) {
-						 %>
-							<td><input type="email" name="changed_email" value="<%= bean.getMail() %>"></td></tr>
-						 <%} else { %>
-						 	<td><input type="text" name="changed_email" value="<%="" %></td>"></tr>
-						 <%} %>
+							Mail = bean.getMail(); 
+						} else {
+							Mail = "";
+						}
+						%>
+							<td><%=Mail %></td></tr>
 						<tr><th>保護者氏名</th>
-							<td><input type="text" name="changed_pname" value="<%= bean.getParentName() %>" pattern=".*\S+.*" required></td></tr>
+							<td><%= bean.getParentName() %></td></tr>
 						<tr><th>保護者ふりがな</th>
-							<td><input type="text" name="changed_pfurigana" value="<%= bean.getParentFurigana() %>" pattern="[\u3041-\u3096\s]*" required></td></tr>
+							<td><%= bean.getParentFurigana() %></td></tr>
 						<tr><th>保護者郵便番号</th>
-							<td><input type="text" name="changed_ppost" value="<%= bean.getParentPostNumber() %>" pattern=".*\S+.*" maxlength="7" required></td></tr>
+							<td><%= bean.getParentPostNumber() %></td></tr>
 						<tr><th>保護者住所</th>
-							<td><input type="tel" name="changed_paddress" value="<%= bean.getParentAddress() %>" pattern=".*\S+.*" required></td></tr>
+							<td><%= bean.getParentAddress() %></td></tr>
 						<tr><th>保護者電話番号</th>
-							<td><input type="email" name="changed_ptel" value="<%= bean.getParentTellNumber() %>" pattern=".*\S+.*" required></td></tr>
+							<td><%= bean.getParentTellNumber() %></td></tr>
 						<tr><th>保護者メールアドレス</th>
 						<%
+						String PMail;
 						if(bean.getParentMail() != null) {
-						 %>
-						 	<td><input type="text" name="changed_pemail" value="<%= bean.getParentMail() %>"></td></tr>
-						 <%} else { %>
-						 	<td><input type="text" name="changed_pemail" value="<%="" %>"></td></tr>
-					<%
+							PMail = bean.getParentMail(); 
+						} else {
+							PMail = "";
 						}
-					}
+						 %>
+						 	<td><%= PMail %></td></tr>
+						 <%
+						}
 					%>
-		<b>修正を確定しますか？</b>
-		
-		<button type="submit">はい</button>
-		<button type="button" onclick="history.back()">戻る</button>
+				</table>
+				
+				<%
+				KadaiDataBean changedData = (KadaiDataBean)kadaiSession.getAttribute("changedBean");
+				%>
+				<table class="y">
+						<tr><th>学籍番号</th>
+							<td><%= changedData.getId() %></td></tr>
+						<tr><th>在籍状態</th>
+							<td><%= changedData.getStatus() %></td></tr>
+						<tr><th>在籍状態確定日</th>
+							<td><%= changedData.getStatusEnterDate() %></td></tr>
+						<tr><th>学生氏名</th>
+							<td><%= changedData.getName() %></td></tr>
+						<tr><th>ふりがな</th>
+							<td><%= changedData.getFurigana() %></td></tr>
+						<tr><th>生年月日</th>
+							<td><%= changedData.getBirth() %></td></tr>
+						<tr><th>本人郵便番号</th>
+							<td><%= changedData.getPostNumber() %></td></tr>
+						<tr><th>本人住所</th>
+							<td><%= changedData.getAddress() %></td></tr>
+						<tr><th>本人電話番号</th>
+							<td><%= changedData.getTellNumber() %></td></tr>
+						<tr><th>本人メールアドレス</th>
+						<%
+						String Mail;
+						if(changedData.getMail() != null) {
+							Mail = changedData.getMail(); 
+						} else {
+							Mail = "";
+						}
+						%>
+							<td><%=Mail %></td></tr>
+						<tr><th>保護者氏名</th>
+							<td><%= changedData.getParentName() %></td></tr>
+						<tr><th>保護者ふりがな</th>
+							<td><%= changedData.getParentFurigana() %></td></tr>
+						<tr><th>保護者郵便番号</th>
+							<td><%= changedData.getParentPostNumber() %></td></tr>
+						<tr><th>保護者住所</th>
+							<td><%= changedData.getParentAddress() %></td></tr>
+						<tr><th>保護者電話番号</th>
+							<td><%= changedData.getParentTellNumber() %></td></tr>
+						<tr><th>保護者メールアドレス</th>
+						<%
+						String PMail;
+						if(changedData.getParentMail() != null) {
+							PMail = changedData.getParentMail(); 
+						} else {
+							PMail = "";
+						}
+						 %>
+						 	<td><%= PMail %></td></tr>
+				</table>
+				<div class="buttonarea">
+				<form method="get" action="select">
+				<button type="button" onclick="history.back()">戻る</button>
+				<button type="submit" name="submit" value="fixEnter">確定</button>
+				</form>
+			</div>
+		</main>
 	</body>
 </html>

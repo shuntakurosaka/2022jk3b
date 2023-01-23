@@ -11,13 +11,13 @@ public class KadaiDataBean implements Serializable{
 	private String name;
 	private String furigana;
 	private String birth;
-	private String postNumber;
+	private int postNumber;
 	private String address;
 	private String tellNumber;
 	private String mail;
 	private String parentName;
 	private String parentFurigana;
-	private String parentPostNumber;
+	private int parentPostNumber;
 	private String parentAddress;
 	private String parentTellNumber;
 	private String parentMail;
@@ -40,7 +40,7 @@ public class KadaiDataBean implements Serializable{
 	public void setBirth(String birth) {
 		this.birth = birth;
 	}
-	public void setPostNumber(String postNumber) {
+	public void setPostNumber(int postNumber) {
 		this.postNumber = postNumber;
 	}
 	public void setAddress(String address) {
@@ -58,7 +58,7 @@ public class KadaiDataBean implements Serializable{
 	public void setParentFurigana(String parentFurigana) {
 		this.parentFurigana = parentFurigana;
 	}
-	public void setParentPostNumber(String parentPostNumber) {
+	public void setParentPostNumber(int parentPostNumber) {
 		this.parentPostNumber = parentPostNumber;
 	}
 	public void setParentAddress(String parentAddress) {
@@ -89,7 +89,7 @@ public class KadaiDataBean implements Serializable{
 	public String getBirth() {
 		return birth;
 	}
-	public String getPostNumber() {
+	public int getPostNumber() {
 		return postNumber;
 	}
 	public String getAddress() {
@@ -107,7 +107,7 @@ public class KadaiDataBean implements Serializable{
 	public String getParentFurigana() {
 		return parentFurigana;
 	}
-	public String getParentPostNumber() {
+	public int getParentPostNumber() {
 		return parentPostNumber;
 	}
 	public String getParentAddress() {

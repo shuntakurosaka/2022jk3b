@@ -1,8 +1,10 @@
+<%@page import="javax.sound.midi.SysexMessage"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ page import="bean.KadaiDataBean"%>
     <%@ page import="java.util.List"%>
     <%@ page import="java.util.ArrayList"%>
+    <%@ page import="javax.servlet.http.HttpSession" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -42,7 +44,8 @@
 		</header>
 		<main>
 				<%
-				List<KadaiDataBean> detailData = (ArrayList)request.getAttribute("detailData");
+				HttpSession kadaiSession = request.getSession();
+				List<KadaiDataBean> detailData = (ArrayList)kadaiSession.getAttribute("S_detailData");
 				for(KadaiDataBean bean : detailData) {
 				%>
 				<table>
@@ -66,12 +69,14 @@
 							<td><%= bean.getTellNumber() %></td></tr>
 						<tr><th>本人メールアドレス</th>
 						<%
+						String Mail;
 						if(bean.getMail() != null) {
-						 %>
-							<td><%= bean.getMail() %></td></tr>
-						 <%} else { %>
-						 	<td><%="" %></td></tr>
-						 <%} %>
+							Mail = bean.getMail(); 
+						} else {
+							Mail = "";
+						}
+						%>
+							<td><%=Mail %></td></tr>
 						<tr><th>保護者氏名</th>
 							<td><%= bean.getParentName() %></td></tr>
 						<tr><th>保護者ふりがな</th>
@@ -84,14 +89,16 @@
 							<td><%= bean.getParentTellNumber() %></td></tr>
 						<tr><th>保護者メールアドレス</th>
 						<%
+						String PMail;
 						if(bean.getParentMail() != null) {
-						 %>
-						 	<td><%= bean.getParentMail() %></td></tr>
-						 <%} else { %>
-						 	<td><%="" %></td></tr>
-					<%
+							PMail = bean.getParentMail(); 
+						} else {
+							PMail = "";
 						}
-					}
+						 %>
+						 	<td><%= PMail %></td></tr>
+						 <%
+						}
 					%>
 				</table>
 				<div class="buttonarea">
