@@ -189,8 +189,8 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 															+ "Parent_PostNumber = ?, "
 															+ "Parent_Address = ?, "
 															+ "Parent_TellNumber = ?, "
-															+ "Parent_Mail = ?, "
-															+ "where Student_ID = ?";
+															+ "Parent_Mail = ? "
+															+ "where Student_ID = ?;";
 			pst = con.prepareStatement(sql);
 			pst.setInt(1, bean.getStatus());
 			pst.setString(2, bean.getStatusEnterDate());

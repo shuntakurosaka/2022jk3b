@@ -104,7 +104,7 @@
 				<div class="buttonarea">
 				<form method="get" action="select">
 				<% for(KadaiDataBean bean : detailData) { %>
-				<button type="button" onclick="history.back()">戻る</button>
+				<button type="button" onclick="location.href='./displayAll'">戻る</button>
 					<input type="hidden" name="id" value="<%= bean.getId() %>">
 					<button type="submit" name="submit" value="fix">修正</button>
 					<%} %>

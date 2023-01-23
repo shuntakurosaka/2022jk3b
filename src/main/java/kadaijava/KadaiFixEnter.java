@@ -30,7 +30,7 @@ public class KadaiFixEnter extends HttpServlet {
 		
 		int result = dao.fixData(changedBean);
 		if(result == 1) {
-			System.out.println("完了");
+			response.sendRedirect("kadaiFixComplete.jsp");
 		} else {
 			errList.add("修正に失敗しました。");
 			request.setAttribute("errList", errList);
