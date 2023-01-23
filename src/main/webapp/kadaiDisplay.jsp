@@ -34,11 +34,11 @@
 				color: #99999;
 			}
 		</style>
-		<title>一覧</title>
+		<title>学生表</title>
 	</head>
 	<body>
 		<header>
-			<h2>データの編集</h2>
+			<h2>学生表</h2>
 		</header>
 		<main>
 			<form class="formarea" method="get" action="search">
@@ -128,7 +128,7 @@
 					}
 				%>
 				<div class="buttonarea">
-					<button type="submit" name="submit" value="delete">詳細</button>
+					<button type="submit" name="submit" value="detail">詳細</button>
 					<button type="submit" name="submit" value="insert">新規登録</button>
 					
 				</div>
