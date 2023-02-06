@@ -9,31 +9,63 @@
 	<head>
 		<meta charset="UTF-8">
 		<style type="text/css">
-			table {
-				border-collapse: collapse;
-			}
-			table, th, td {
-				border: solid 1px #000000;
-			}
-			th, td {
-				padding: 5px;
-			}
-			.formarea {
-				margin-left: 30px;
-			}
-			.buttonarea {
-				margin-top: 20px;
-			}
-			.linkStyle {
-				display: inline-block;
-				padding: 10px;
-				color: #0000ff;
-			}
-			.noLinkStyle {
-				display: line-block;
-				padding: 10px;
-				color: #99999;
-			}
+			table{
+  border-collapse:separate;
+  border-spacing: 3px;
+  width: 40%;
+  margin-top: 30px;
+}
+
+ 
+
+table th,table td{
+  border-radius: 5px;
+  text-align: center
+  padding: 5px ;
+  font-size: 20px;
+}
+
+ 
+
+table th{
+  background-color: #c79852;
+  color: white;
+  border:solid 1px #927141;
+  font-size: 25px;
+}
+
+font_text {
+    font-weight:  bolder ;
+    font-family:  serif;
+}
+
+.yukiya12{
+ width:80px;
+	height:50px;
+}
+.yukiya13{
+ width:80px;
+	height:50px;
+}
+
+.yukiya14{
+ width:80px;
+	height:50px;
+}
+input{
+font-size: 25px;
+}
+</style>
+<body>
+<style>
+        h2{
+            color: white;
+            border: 3px dashed #927141;
+            background-color: #c79852;
+            box-shadow: 0 0 3px 3px #e4d4bc;
+            padding: 0.5em 0.8em;
+            text-align: center
+        }
 		</style>
 		<title>編集</title>
 	</head>
@@ -101,9 +133,9 @@
 						 	<td><input type="email" name="changed_pemail" value="<%= PMail %>"></td></tr>
 				</table>
 				<div class="buttonarea">
-					<button type="button" onclick="history.back()">戻る</button>
-					<button type="button" onclick="window.location.reload(true)">リセット</button>
-					<button type="submit" name="submit" value="fixConfirm">修正</button>
+					<button type="button" class="yukiya12"onclick="history.back()">戻る</button>
+					<button type="button"class="yukiya13" onclick="window.location.reload(true)">リセット</button>
+					<button type="submit"class="yukiya14" name="submit" value="fixConfirm">修正</button>
 				</div>
 				<% } %>
 				</form>

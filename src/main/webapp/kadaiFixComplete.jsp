@@ -5,7 +5,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>修正完了</title>
-		<META http-equiv="Refresh" content="5;URL=kadaiDetailDisplay.jsp">
+		<META http-equiv="Refresh" content="1;URL=kadaiDetailDisplay.jsp">
 	</head>
 	<body>
 		<h2>正常に修正されました。</h2>
